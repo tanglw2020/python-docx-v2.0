@@ -32,6 +32,7 @@ class CT_Fonts(BaseOxmlElement):
     """
     ascii = OptionalAttribute('w:ascii', ST_String)
     hAnsi = OptionalAttribute('w:hAnsi', ST_String)
+    eastAsia = OptionalAttribute('w:eastAsia', ST_String)
 
 
 class CT_Highlight(BaseOxmlElement):
@@ -116,6 +117,19 @@ class CT_RPr(BaseOxmlElement):
             return
         highlight = self.get_or_add_highlight()
         highlight.val = value
+
+    @property
+    def rFonts_eastasia(self):
+        """
+        The value of `w:rFonts/@w:ascii` or |None| if not present. Represents
+        the assigned typeface name. The rFonts element also specifies other
+        special-case typeface names; this method handles the case where just
+        the common name is required.
+        """
+        rFonts = self.rFonts
+        if rFonts is None:
+            return None
+        return rFonts.eastAsia
 
     @property
     def rFonts_ascii(self):

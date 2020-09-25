@@ -191,6 +191,19 @@ class Font(ElementProxy):
             return None
         return rPr.rFonts_ascii
 
+    @property
+    def name_eastasia(self):
+        """
+        Get or set the typeface name for this |Font| instance, causing the
+        text it controls to appear in the named font, if a matching font is
+        found. |None| indicates the typeface is inherited from the style
+        hierarchy.
+        """
+        rPr = self._element.rPr
+        if rPr is None:
+            return None
+        return rPr.rFonts_eastasia
+
     @name.setter
     def name(self, value):
         rPr = self._element.get_or_add_rPr()
