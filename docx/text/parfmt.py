@@ -22,6 +22,31 @@ class ParagraphFormat(ElementProxy):
 
     __slots__ = ('_tab_stops',)
 
+
+    @property
+    def first_char_dropcap(self):
+        """
+        first_char_dropcap value specifying  for
+        the first char of the paragraph.
+        """
+        pPr = self._element.pPr
+        if pPr is None:
+            return None
+        return pPr.first_char_dropcap
+
+
+    @property
+    def first_char_dropcap_lines(self):
+        """
+        first_char_dropcap value specifying  for
+        the first char of the paragraph.
+        """
+        pPr = self._element.pPr
+        if pPr is None:
+            return None
+        return pPr.first_char_dropcap_lines
+
+
     @property
     def alignment(self):
         """

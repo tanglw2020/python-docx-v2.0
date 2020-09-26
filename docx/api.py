@@ -21,7 +21,7 @@ def Document(docx=None):
     *docx* is missing or ``None``, the built-in default document "template"
     is loaded.
     """
-    print("V0.4")
+    print("V0.5")
     docx = _default_docx_path() if docx is None else docx
     document_part = Package.open(docx).main_document_part
     if document_part.content_type != CT.WML_DOCUMENT_MAIN:

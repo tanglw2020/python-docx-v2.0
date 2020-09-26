@@ -9,8 +9,7 @@ from ...enum.text import (
 )
 
 from ...shared import Length
-from ..shared import CT_OnOff, CT_String
-from ..simpletypes import ST_SignedTwipsMeasure, ST_TwipsMeasure, ST_DecimalNumber
+from ..simpletypes import ST_SignedTwipsMeasure, ST_TwipsMeasure, ST_DecimalNumber, ST_String
 from ..xmlchemy import (
     BaseOxmlElement, OneOrMore, OptionalAttribute, RequiredAttribute,
     ZeroOrOne
@@ -20,7 +19,7 @@ class CT_framePr(BaseOxmlElement):
     """
     ``<w:framePr>`` element, specifying paragraph indentation.
     """
-    dropCap = OptionalAttribute('w:dropCap', CT_String)
+    dropCap = OptionalAttribute('w:dropCap', ST_String)
     lines = OptionalAttribute('w:lines', ST_DecimalNumber)
 
 class CT_Ind(BaseOxmlElement):
@@ -68,6 +67,29 @@ class CT_PPr(BaseOxmlElement):
     jc = ZeroOrOne('w:jc', successors=_tag_seq[27:])
     sectPr = ZeroOrOne('w:sectPr', successors=_tag_seq[35:])
     del _tag_seq
+
+    @property
+    def first_char_dropcap(self):
+        """
+        A  string from the values of `w:framePr/@w:dropCap`
+        Returns |None| if the `w:framePr` child is not present.
+        """
+        framePr = self.framePr
+        if framePr is None:
+            return None
+        return framePr.dropCap
+
+    @property
+    def first_char_dropcap_lines(self):
+        """
+        A  numb from the values of `w:framePr/@w:lines`
+        Returns |None| if the `w:framePr` child is not present.
+        """
+        framePr = self.framePr
+        if framePr is None:
+            return None
+        return framePr.lines
+
 
     @property
     def first_line_indent(self):
