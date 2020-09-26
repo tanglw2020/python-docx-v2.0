@@ -46,7 +46,17 @@ class CT_Settings(BaseOxmlElement):
         "w:shapeDefaults", "w:doNotEmbedSmartTags", "w:decimalSymbol", "w:listSeparator"
     )
     evenAndOddHeaders = ZeroOrOne("w:evenAndOddHeaders", successors=_tag_seq[48:])
+    gutterAtTop = ZeroOrOne("w:gutterAtTop", successors=_tag_seq[18:])
     del _tag_seq
+
+    @property
+    def gutterAtTop_val(self):
+        """value of `w:gutterAtTop/` or |None| if not present."""
+        gutter_at_top = self.gutterAtTop
+        if gutter_at_top is None:
+            return False
+        return gutter_at_top.val
+
 
     @property
     def evenAndOddHeaders_val(self):

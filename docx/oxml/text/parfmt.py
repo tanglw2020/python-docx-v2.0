@@ -7,13 +7,21 @@ Custom element classes related to paragraph properties (CT_PPr).
 from ...enum.text import (
     WD_ALIGN_PARAGRAPH, WD_LINE_SPACING, WD_TAB_ALIGNMENT, WD_TAB_LEADER
 )
+
 from ...shared import Length
-from ..simpletypes import ST_SignedTwipsMeasure, ST_TwipsMeasure
+from ..shared import CT_OnOff, CT_String
+from ..simpletypes import ST_SignedTwipsMeasure, ST_TwipsMeasure, ST_DecimalNumber
 from ..xmlchemy import (
     BaseOxmlElement, OneOrMore, OptionalAttribute, RequiredAttribute,
     ZeroOrOne
 )
 
+class CT_framePr(BaseOxmlElement):
+    """
+    ``<w:framePr>`` element, specifying paragraph indentation.
+    """
+    dropCap = OptionalAttribute('w:dropCap', CT_String)
+    lines = OptionalAttribute('w:lines', ST_DecimalNumber)
 
 class CT_Ind(BaseOxmlElement):
     """
@@ -51,6 +59,7 @@ class CT_PPr(BaseOxmlElement):
     keepNext = ZeroOrOne('w:keepNext', successors=_tag_seq[2:])
     keepLines = ZeroOrOne('w:keepLines', successors=_tag_seq[3:])
     pageBreakBefore = ZeroOrOne('w:pageBreakBefore', successors=_tag_seq[4:])
+    framePr = ZeroOrOne('w:framePr', successors=_tag_seq[5:])
     widowControl = ZeroOrOne('w:widowControl', successors=_tag_seq[6:])
     numPr = ZeroOrOne('w:numPr', successors=_tag_seq[7:])
     tabs = ZeroOrOne('w:tabs', successors=_tag_seq[11:])
